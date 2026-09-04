@@ -1,0 +1,70 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import HeroText from '~/components/widgets/HeroText.astro';
+import ContactUs from '~/components/widgets/Contact.astro';
+import Features2 from '~/components/widgets/Features2.astro';
+
+const metadata = {
+  title: 'Contact — Joan Andrivalisoa',
+};
+---
+
+<Layout metadata={metadata}>
+  <HeroText tagline="Contact" title="Let's discuss your hiring needs!" />
+
+  <!-- Contact Form Section -->
+  <ContactUs
+    id="form"
+    title="Send Me a Message"
+    subtitle="Whether you have an immediate hiring need or want to discuss recruitment strategies, I will reply within 24 hours."
+    inputs={[
+      {
+        type: 'text',
+        name: 'name',
+        label: 'Full Name',
+      },
+      {
+        type: 'email',
+        name: 'email',
+        label: 'Email Address',
+      },
+    ]}
+    textarea={{
+      label: 'Your Message / Hiring Needs',
+    }}
+    disclaimer={{
+      label: 'By submitting this form, you agree to be contacted regarding your inquiry.',
+    }}
+    button="Send Message"
+  />
+
+  <!-- Direct Contact Information -->
+  <Features2
+    title="Or reach out directly via:"
+    items={[
+      {
+        title: 'LinkedIn',
+        description: 'Connect and expand our professional network.',
+        icon: 'tabler:brand-linkedin',
+        callToAction: {
+          text: 'Visit my profile',
+          href: 'https://linkedin.com/in/your-profile',
+        },
+      },
+      {
+        title: 'Email',
+        description: 'For direct inquiries and proposals.',
+        icon: 'tabler:mail',
+        callToAction: {
+          text: 'Send an email',
+          href: 'mailto:your-email@example.com',
+        },
+      },
+      {
+        title: 'Availability',
+        description: 'Open to Freelance, Full-time & Remote contracts.',
+        icon: 'tabler:map-pin',
+      },
+    ]}
+  />
+</Layout>

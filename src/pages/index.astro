@@ -1,0 +1,64 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import Stats from '~/components/widgets/Stats.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+const metadata = {
+  title: 'Joan Andrivalisoa — Talent Acquisition Specialist',
+};
+---
+
+<Layout metadata={metadata}>
+  <!-- Hero Section -->
+  <Hero
+    image={{ src: '~/assets/images/hero-image.png', alt: 'Joan Andrivalisoa - Talent Acquisition' }}
+    actions={[
+      {
+        variant: 'primary',
+        text: 'Explore My Process',
+        href: '/process',
+        icon: 'tabler:arrow-right',
+      },
+      { text: 'Contact Me', href: '/contact' },
+    ]}
+    
+  >
+    <Fragment slot="title">
+      Joan Andrivalisoa
+      <br />
+      <span class="text-accent dark:text-white highlight">Talent Acquisition</span>
+    </Fragment>
+
+    <Fragment slot="subtitle">
+      <span class="font-semibold text-xl">Talent acquisition made simple.</span>
+      <br />
+      Helping companies identify, attract, and hire top-tier talent through a human-centric, structured, and data-driven approach.
+    </Fragment>
+  </Hero>
+
+  <!-- Key Metrics / Statistics Section -->
+  <Stats
+    title="Recruitment Impact in Numbers"
+    subtitle="Measurable results driving sustainable team growth"
+    stats={[
+      { title: 'Successful Hires', amount: '+50' },
+      { title: 'Avg. Time-to-Hire', amount: '25 days' },
+      { title: 'Retention Rate (Probation)', amount: '95%' },
+      { title: 'Manager & Candidate Satisfaction', amount: '4.9/5' },
+    ]}
+  />
+
+  <!-- Final Call to Action -->
+  <CallToAction
+    title="Looking for your next top talent?"
+    subtitle="Let's optimize your hiring strategy and build your dream team."
+    actions={[
+      {
+        variant: 'primary',
+        text: "Let's Talk",
+        href: '/contact',
+      },
+    ]}
+  />
+</Layout>

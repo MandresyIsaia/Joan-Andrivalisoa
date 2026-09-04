@@ -1,0 +1,64 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Steps from '~/components/widgets/Steps.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+const metadata = {
+  title: 'Recruitment Process — Joan Andrivalisoa',
+};
+---
+
+<Layout metadata={metadata}>
+  <Steps
+    title="My Recruitment Process"
+    subtitle="A proven, transparent end-to-end framework from requirement discovery to onboarding."
+    items={[
+      {
+        title: 'Step 1: <span class="font-semibold">Discovery & Role Scoping</span>',
+        description:
+          'Deep dive into company culture, defining exact technical requirements, soft skills, and strategic expectations for the role.',
+        icon: 'tabler:clipboard-check',
+      },
+      {
+        title: 'Step 2: <span class="font-semibold">Targeted Sourcing & Headhunting</span>',
+        description:
+          'Multi-channel direct search across LinkedIn, niche networks, and talent pools to engage top active and passive candidates.',
+        icon: 'tabler:search',
+      },
+      {
+        title: 'Step 3: <span class="font-semibold">Structured Interviews & Assessment</span>',
+        description:
+          'In-depth screening and competency-based interviews evaluating technical expertise, motivational fit, and cultural alignment.',
+        icon: 'tabler:users',
+      },
+      {
+        title: 'Step 4: <span class="font-semibold">Shortlist & Decision Support</span>',
+        description:
+          'Delivering comprehensive candidate scorecards, managing stakeholder debriefs, and conducting thorough reference checks.',
+        icon: 'tabler:file-text',
+      },
+      {
+        title: 'Step 5: <span class="font-semibold">Offer Negotiation & Onboarding</span>',
+        description:
+          'Closing candidates, handling offer negotiations, and maintaining pre-onboarding touchpoints to ensure long-term retention.',
+        icon: 'tabler:confetti',
+      },
+    ]}
+    image={{
+      src: '~/assets/images/steps-image.png',
+      alt: 'Recruitment process methodology',
+    }}
+  />
+
+  <CallToAction
+    title="Ready to start hiring?"
+    subtitle="Let's apply this structured methodology to your hiring pipeline."
+    actions={[
+      {
+        variant: 'primary',
+        text: 'Get in Touch',
+        href: '/contact',
+      },
+    ]}
+  />
+</Layout>
