@@ -1,8 +1,8 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
 import Hero from '~/components/widgets/Hero.astro';
-import Stats from '~/components/widgets/Stats.astro';
-import CallToAction from '~/components/widgets/CallToAction.astro';
+// import Steps from '~/components/widgets/Steps.astro';
+import ContactUs from '~/components/widgets/Contact.astro';
 
 const metadata = {
   title: 'Joan Andrivalisoa — Talent Acquisition Specialist',
@@ -10,55 +10,169 @@ const metadata = {
 ---
 
 <Layout metadata={metadata}>
-  <!-- Hero Section -->
-  <Hero
-    image={{ src: '~/assets/images/hero-image.png', alt: 'Joan Andrivalisoa - Talent Acquisition' }}
-    actions={[
-      {
-        variant: 'primary',
-        text: 'Explore My Process',
-        href: '/process',
-        icon: 'tabler:arrow-right',
-      },
-      { text: 'Contact Me', href: '/contact' },
-    ]}
+
+  <!-- ==========================================
+       SECTION 1 : HOME (100vh)
+       ========================================== -->
+  <section id="home" class="min-h-screen flex flex-col justify-center bg-white dark:bg-slate-950 pt-16">
+    <Hero
+      actions={[
+        {
+          variant: 'primary',
+          text: 'Explore My Process',
+          href: '#process',
+          icon: 'tabler:arrow-down',
+        },
+        { text: 'Contact Me', href: '#contact' },
+      ]}
+      image={{ src: '~/assets/images/hero-image.png', alt: 'Joan Andrivalisoa - Talent Acquisition' }}
+    >
+      <Fragment slot="title">
+        Joan Andrivalisoa
+        <br />
+        <span class="text-accent dark:text-white highlight">Talent Acquisition</span>
+      </Fragment>
+
+      <Fragment slot="subtitle">
+        <span class="font-semibold text-xl">Talent acquisition made simple.</span>
+        <br />
+        Helping companies identify, attract, and hire top-tier talent through a human-centric, structured, and data-driven approach.
+      </Fragment>
+    </Hero>
+  </section>
+
+
+  <!-- ==========================================
+       SECTION 2 : PROCESS & LOGOS (100vh)
+       ========================================== -->
+  <section id="process" class="min-h-screen flex flex-col justify-center bg-gray-50/50 dark:bg-slate-900/30 py-12">
     
-  >
-    <Fragment slot="title">
-      Joan Andrivalisoa
-      <br />
-      <span class="text-accent dark:text-white highlight">Talent Acquisition</span>
-    </Fragment>
+    <!-- A. LOGO MARQUEE (Talma.ai style) -->
+    <div class="w-full overflow-hidden py-6 border-y border-gray-200/50 dark:border-gray-800 bg-white dark:bg-slate-950 mb-10">
+      <div class="relative w-full overflow-hidden">
+        <div class="flex animate-marquee whitespace-nowrap">
+          <!-- List of logos (Duplicated once for infinite loop) -->
+          <img src="/logos/agicap-tr.png" alt="Partner 1" class="h-8 md:h-10 mx-12 object-contain opacity-100 hover:opacity-100 transition-opacity grayscale" />
+          <img src="/logos/agridom.png" alt="Partner 2" class="h-8 md:h-10 mx-12 object-contain opacity-100 hover:opacity-100 transition-opacity grayscale" />
+          <img src="/logos/aligneurs_franais_logo.png" alt="Partner 3" class="h-8 md:h-10 mx-12 object-contain opacity-100 hover:opacity-100 transition-opacity grayscale" />
+          <img src="/logos/animaj.png" alt="Partner 4" class="h-8 md:h-10 mx-12 object-contain opacity-100 hover:opacity-100 transition-opacity grayscale" />
+          <img src="/logos/blumana.png" alt="Partner 5" class="h-8 md:h-10 mx-12 object-contain opacity-100 hover:opacity-100 transition-opacity grayscale" />
+          <img src="/logos/Capture+d_E2_80_99e_CC_81cran+2026-02-11+a_CC_80+18.07.43.png" alt="Partner 6" class="h-8 md:h-10 mx-12 object-contain opacity-100 hover:opacity-100 transition-opacity grayscale" />
+          <img src="/logos/cesam.png" alt="Partner 7" class="h-8 md:h-10 mx-12 object-contain opacity-100 hover:opacity-100 transition-opacity grayscale" />
+          <img src="/logos/dune.png" alt="Partner 8" class="h-8 md:h-10 mx-12 object-contain opacity-100 hover:opacity-100 transition-opacity grayscale" />
+          <img src="/logos/fringuant.png" alt="Partner 9" class="h-8 md:h-10 mx-12 object-contain opacity-100 hover:opacity-100 transition-opacity grayscale" />
+          <img src="/logos/heyteam.png" alt="Partner 10" class="h-8 md:h-10 mx-12 object-contain opacity-100 hover:opacity-100 transition-opacity grayscale" />
+          <img src="/logos/hyppo.png" alt="Partner 11" class="h-8 md:h-10 mx-12 object-contain opacity-100 hover:opacity-100 transition-opacity grayscale" />
+          <img src="/logos/naboo-tr.png" alt="Partner 12" class="h-8 md:h-10 mx-12 object-contain opacity-100 hover:opacity-100 transition-opacity grayscale" />
+          <img src="/logos/preveam.png" alt="Partner 13" class="h-8 md:h-10 mx-12 object-contain opacity-100 hover:opacity-100 transition-opacity grayscale" />
+          <img src="/logos/revolv.png" alt="Partner 14" class="h-8 md:h-10 mx-12 object-contain opacity-100 hover:opacity-100 transition-opacity grayscale" />
+          <img src="/logos/simplycure.png" alt="Partner 15" class="h-8 md:h-10 mx-12 object-contain opacity-100 hover:opacity-100 transition-opacity grayscale" />
+          <img src="/logos/tilos.png" alt="Partner 16" class="h-8 md:h-10 mx-12 object-contain opacity-100 hover:opacity-100 transition-opacity grayscale" />
+          <img src="/logos/time2scale.png" alt="Partner 17" class="h-8 md:h-10 mx-12 object-contain opacity-100 hover:opacity-100 transition-opacity grayscale" />
+          <img src="/logos/trusk.png" alt="Partner 18" class="h-8 md:h-10 mx-12 object-contain opacity-100 hover:opacity-100 transition-opacity grayscale" />
+          <!-- Duplicate for seamless transition -->
+          <img src="/logos/agicap-tr.png" alt="Partner 1" class="h-8 md:h-10 mx-12 object-contain opacity-100 hover:opacity-100 transition-opacity grayscale" />
+          <img src="/logos/agridom.png" alt="Partner 2" class="h-8 md:h-10 mx-12 object-contain opacity-100 hover:opacity-100 transition-opacity grayscale" />
+          <img src="/logos/aligneurs_franais_logo.png" alt="Partner 3" class="h-8 md:h-10 mx-12 object-contain opacity-100 hover:opacity-100 transition-opacity grayscale" />
+          <img src="/logos/animaj.png" alt="Partner 4" class="h-8 md:h-10 mx-12 object-contain opacity-100 hover:opacity-100 transition-opacity grayscale" />
+          <img src="/logos/blumana.png" alt="Partner 5" class="h-8 md:h-10 mx-12 object-contain opacity-100 hover:opacity-100 transition-opacity grayscale" />
+          <img src="/logos/Capture+d_E2_80_99e_CC_81cran+2026-02-11+a_CC_80+18.07.43.png" alt="Partner 6" class="h-8 md:h-10 mx-12 object-contain opacity-100 hover:opacity-100 transition-opacity grayscale" />
+          <img src="/logos/cesam.png" alt="Partner 7" class="h-8 md:h-10 mx-12 object-contain opacity-100 hover:opacity-100 transition-opacity grayscale" />
+          <img src="/logos/dune.png" alt="Partner 8" class="h-8 md:h-10 mx-12 object-contain opacity-100 hover:opacity-100 transition-opacity grayscale" />
+          <img src="/logos/fringuant.png" alt="Partner 9" class="h-8 md:h-10 mx-12 object-contain opacity-100 hover:opacity-100 transition-opacity grayscale" />
+          <img src="/logos/heyteam.png" alt="Partner 10" class="h-8 md:h-10 mx-12 object-contain opacity-100 hover:opacity-100 transition-opacity grayscale" />
+          <img src="/logos/hyppo.png" alt="Partner 11" class="h-8 md:h-10 mx-12 object-contain opacity-100 hover:opacity-100 transition-opacity grayscale" />
+          <img src="/logos/naboo-tr.png" alt="Partner 12" class="h-8 md:h-10 mx-12 object-contain opacity-100 hover:opacity-100 transition-opacity grayscale" />
+          <img src="/logos/preveam.png" alt="Partner 13" class="h-8 md:h-10 mx-12 object-contain opacity-100 hover:opacity-100 transition-opacity grayscale" />
+          <img src="/logos/revolv.png" alt="Partner 14" class="h-8 md:h-10 mx-12 object-contain opacity-100 hover:opacity-100 transition-opacity grayscale" />
+          <img src="/logos/simplycure.png" alt="Partner 15" class="h-8 md:h-10 mx-12 object-contain opacity-100 hover:opacity-100 transition-opacity grayscale" />
+          <img src="/logos/tilos.png" alt="Partner 16" class="h-8 md:h-10 mx-12 object-contain opacity-100 hover:opacity-100 transition-opacity grayscale" />
+          <img src="/logos/time2scale.png" alt="Partner 17" class="h-8 md:h-10 mx-12 object-contain opacity-100 hover:opacity-100 transition-opacity grayscale" />
+          <img src="/logos/trusk.png" alt="Partner 18" class="h-8 md:h-10 mx-12 object-contain opacity-100 hover:opacity-100 transition-opacity grayscale" />
+        </div>
+      </div>
+    </div>
 
-    <Fragment slot="subtitle">
-      <span class="font-semibold text-xl">Talent acquisition made simple.</span>
-      <br />
-      Helping companies identify, attract, and hire top-tier talent through a human-centric, structured, and data-driven approach.
-    </Fragment>
-  </Hero>
+    <!-- A. SPECIFIC STATISTICS (Grid) -->
+      <div class="mb-16">
+        <h2 class="text-center text-3xl font-bold mb-8 dark:text-white">Our Impact in Numbers</h2>
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-8">
+          {[
+            { value: '6,000+', label: 'Talents sourced per mission' },
+            { value: '48h', label: 'To first shortlist' },
+            { value: '70%', label: 'Reduction in time-to-hire' },
+            { value: '96%', label: 'Success rate' },
+            { value: '10+', label: 'Years of recruitment expertise' }
+          ].map((stat) => (
+            <div class="text-center p-6 rounded-xl bg-gray-50 dark:bg-slate-900 border border-gray-100 dark:border-gray-800 shadow-sm">
+              <p class="text-3xl md:text-4xl font-extrabold text-primary dark:text-blue-400 tracking-tight">{stat.value}</p>
+              <p class="text-xs md:text-sm text-muted dark:text-slate-400 mt-2 font-medium leading-snug">{stat.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+  </section>
 
-  <!-- Key Metrics / Statistics Section -->
-  <Stats
-    title="Recruitment Impact in Numbers"
-    subtitle="Measurable results driving sustainable team growth"
-    stats={[
-      { title: 'Successful Hires', amount: '+50' },
-      { title: 'Avg. Time-to-Hire', amount: '25 days' },
-      { title: 'Retention Rate (Probation)', amount: '95%' },
-      { title: 'Manager & Candidate Satisfaction', amount: '4.9/5' },
-    ]}
-  />
 
-  <!-- Final Call to Action -->
-  <CallToAction
-    title="Looking for your next top talent?"
-    subtitle="Let's optimize your hiring strategy and build your dream team."
-    actions={[
-      {
-        variant: 'primary',
-        text: "Let's Talk",
-        href: '/contact',
-      },
-    ]}
-  />
+  <!-- ==========================================
+       SECTION 3 : CONTACT & KEY STATS (100vh)
+       ========================================== -->
+  <section id="contact" class="min-h-screen flex flex-col justify-center bg-white dark:bg-slate-950 py-12 border-t border-gray-100 dark:border-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full">
+      
+      
+
+      <!-- B. CONTACT FORM -->
+      <div class="max-w-3xl mx-auto">
+        <ContactUs
+          id="form"
+          title="Let's build your dream team!"
+          subtitle="Drop me a line. I'll get back to you within 24 hours."
+          inputs={[
+            {
+              type: 'text',
+              name: 'name',
+              label: 'Full Name',
+            },
+            {
+              type: 'email',
+              name: 'email',
+              label: 'Email Address',
+            },
+          ]}
+          textarea={{
+            label: 'Tell me about your hiring needs',
+          }}
+          disclaimer={{
+            label: 'By submitting this form, you agree to be contacted.',
+          }}
+          button="Send Message"
+        />
+      </div>
+
+    </div>
+  </section>
+
 </Layout>
+
+<!-- ==========================================
+     CSS SPECIFIQUE POUR L'ANIMATION DES LOGOS
+     ========================================== -->
+<style is:global>
+  /* Défilement fluide de la page entière */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Style du carrousel de logos (Marquee) */
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .animate-marquee {
+    animation: marquee 25s linear infinite;
+  }
+  .animate-marquee:hover {
+    animation-play-state: paused;
+  }
+</style>

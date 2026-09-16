@@ -1,10 +1,9 @@
 export const headerData = {
   links: [
-    { text: 'Home', href: '/' },
-    { text: 'Recruitment Process', href: '/process' },
-    { text: 'Contact', href: '/contact' },
+    { text: 'Home', href: '#home' },
+    { text: 'Contact', href: '#contact' },
   ],
-  actions: [{ text: 'Get in Touch', href: '/contact' }],
+  actions: [{ text: 'Get in Touch', href: '#contact' }],
 };
 
 export const footerData = {
