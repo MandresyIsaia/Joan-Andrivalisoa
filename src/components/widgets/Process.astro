@@ -1,0 +1,207 @@
+---
+import { Icon } from 'astro-icon/components';
+import Button from '~/components/ui/Button.astro';
+
+export interface ProcessStep {
+  title: string;
+  description: string;
+  icon: string;
+  duration?: string;
+  deliverables?: string[];
+}
+
+export interface Props {
+  id?: string;
+  tagline?: string;
+  title?: string;
+  subtitle?: string;
+  steps: ProcessStep[];
+  action?: { text: string; href: string };
+}
+
+const { id = 'process', tagline, title, subtitle, steps = [], action } = Astro.props;
+const total = String(steps.length).padStart(2, '0');
+---
+
+<section
+  id={id}
+  class="relative isolate overflow-hidden scroll-mt-20 py-24 md:py-32 bg-slate-50 dark:bg-slate-900/40"
+  data-process
+>
+  <!-- Background -->
+  <div class="absolute inset-0 -z-10" aria-hidden="true">
+    <div class="bg-grid absolute inset-0"></div>
+    <div class="aurora-blob w-[32rem] h-[32rem] -top-40 -left-32 bg-blue-400/50"></div>
+    <div class="aurora-blob w-[28rem] h-[28rem] top-1/3 -right-40 bg-violet-400/50"></div>
+    <div class="aurora-blob w-[24rem] h-[24rem] -bottom-40 left-1/3 bg-pink-300/40"></div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-12 gap-12 lg:gap-16">
+    <!-- Left: sticky intro + live step indicator -->
+    <div class="lg:col-span-5">
+      <div class="lg:sticky lg:top-28">
+        {
+          tagline && (
+            <p
+              data-reveal
+              class="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-white/70 dark:bg-slate-900/70 backdrop-blur px-4 py-1.5 text-sm font-semibold text-primary dark:text-blue-300"
+            >
+              <Icon name="tabler:sparkles" class="w-4 h-4" />
+              {tagline}
+            </p>
+          )
+        }
+        {
+          title && (
+            <h2
+              data-reveal
+              style="--reveal-delay: 100"
+              class="mt-6 font-heading font-bold text-4xl md:text-5xl lg:text-6xl leading-[1.05] tracking-tight text-gray-900 dark:text-white"
+              set:html={title}
+            />
+          )
+        }
+        {
+          subtitle && (
+            <p
+              data-reveal
+              style="--reveal-delay: 200"
+              class="mt-6 text-lg text-muted dark:text-slate-400 max-w-md"
+              set:html={subtitle}
+            />
+          )
+        }
+
+        <div
+          data-reveal
+          style="--reveal-delay: 300"
+          class="hidden lg:block mt-10 max-w-sm rounded-3xl border border-gray-200/70 dark:border-slate-700/70 bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl p-6 shadow-xl shadow-blue-900/5"
+          aria-hidden="true"
+        >
+          <div class="flex items-baseline gap-2 font-heading">
+            <span data-process-current class="text-6xl font-bold text-gradient tabular-nums">01</span>
+            <span class="text-xl text-gray-400 dark:text-slate-500">/ {total}</span>
+          </div>
+          <p data-process-title class="mt-2 font-medium text-gray-700 dark:text-slate-300 min-h-[1.5rem]">
+            {steps[0]?.title}
+          </p>
+          <div class="mt-5 h-1.5 rounded-full bg-gray-200 dark:bg-slate-800 overflow-hidden">
+            <div class="process-bar h-full rounded-full"></div>
+          </div>
+        </div>
+
+        {
+          action && (
+            <div data-reveal style="--reveal-delay: 400" class="mt-10">
+              <Button variant="primary" text={action.text} href={action.href} icon="tabler:arrow-right" />
+            </div>
+          )
+        }
+      </div>
+    </div>
+
+    <!-- Right: timeline -->
+    <ol class="lg:col-span-7 relative" data-process-track>
+      <span
+        class="absolute left-7 top-2 bottom-2 w-px -translate-x-1/2 bg-gray-200 dark:bg-slate-700"
+        aria-hidden="true"></span>
+      <span class="process-line absolute left-7 top-2 bottom-2 w-[3px] -translate-x-1/2 rounded-full" aria-hidden="true"
+      ></span>
+
+      {
+        steps.map((step, i) => (
+          <li data-process-step={step.title} class="process-step relative pl-20 md:pl-24 pb-8 last:pb-0">
+            <div class="process-node absolute left-0 top-1 w-14 h-14 rounded-2xl grid place-items-center border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-gray-500 dark:text-slate-400 shadow-sm">
+              <Icon name={step.icon} class="w-6 h-6" />
+            </div>
+
+            <article
+              data-reveal="right"
+              style={`--reveal-delay: ${i * 80}`}
+              class="glow-card rounded-3xl border border-gray-200/80 dark:border-slate-700/70 bg-white/80 dark:bg-slate-900/70 backdrop-blur-xl p-6 md:p-8"
+            >
+              <div class="flex flex-wrap items-center justify-between gap-3">
+                <span class="font-mono text-xs uppercase tracking-[0.2em] text-primary dark:text-blue-300">
+                  Step {String(i + 1).padStart(2, '0')}
+                </span>
+                {step.duration && (
+                  <span class="inline-flex items-center gap-1.5 rounded-full bg-gray-100 dark:bg-slate-800 px-3 py-1 text-xs font-medium text-gray-600 dark:text-slate-300">
+                    <Icon name="tabler:clock" class="w-3.5 h-3.5" />
+                    {step.duration}
+                  </span>
+                )}
+              </div>
+              <h3 class="mt-4 font-heading text-2xl md:text-[1.7rem] font-semibold tracking-tight text-gray-900 dark:text-white">
+                {step.title}
+              </h3>
+              <p class="mt-3 text-muted dark:text-slate-400 leading-relaxed">{step.description}</p>
+              {step.deliverables?.length ? (
+                <ul class="mt-5 flex flex-wrap gap-2">
+                  {step.deliverables.map((item) => (
+                    <li class="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 dark:border-slate-700 px-2.5 py-1 text-xs font-medium text-gray-700 dark:text-slate-300">
+                      <Icon name="tabler:check" class="w-3.5 h-3.5 text-primary dark:text-blue-300" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+            </article>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  [data-process] {
+    --process-progress: 0;
+  }
+
+  .process-line {
+    background: linear-gradient(to bottom, var(--aw-color-primary), var(--aw-color-accent), #ec4899);
+    transform-origin: top;
+    transform: translateX(-50%) scaleY(var(--process-progress));
+    box-shadow: 0 0 18px rgb(109 40 217 / 0.45);
+    transition: transform 0.15s linear;
+  }
+
+  .process-bar {
+    width: 100%;
+    background: linear-gradient(90deg, var(--aw-color-primary), var(--aw-color-accent), #ec4899);
+    transform-origin: left;
+    transform: scaleX(var(--process-progress));
+    transition: transform 0.15s linear;
+  }
+
+  .process-node {
+    transition:
+      background 0.5s var(--ease-out-expo),
+      color 0.5s var(--ease-out-expo),
+      transform 0.6s var(--ease-out-expo),
+      box-shadow 0.6s var(--ease-out-expo),
+      border-color 0.5s ease;
+  }
+  .process-step.is-done .process-node {
+    color: var(--aw-color-primary);
+    border-color: color-mix(in srgb, var(--aw-color-primary) 40%, transparent);
+  }
+  .process-step.is-active .process-node {
+    color: white;
+    border-color: transparent;
+    background: linear-gradient(135deg, var(--aw-color-primary), var(--aw-color-accent));
+    transform: scale(1.12) rotate(-4deg);
+    box-shadow: 0 12px 30px -10px rgb(109 40 217 / 0.6);
+  }
+  .process-step.is-active .glow-card::before {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .process-line,
+    .process-bar,
+    .process-node {
+      transition: none;
+    }
+  }
+</style>

@@ -23,7 +23,7 @@ const { inputs, textarea, disclaimer, button = 'Contact us', description = '' } 
                 id={name}
                 autocomplete={autocomplete}
                 placeholder={placeholder}
-                class="py-3 px-4 block w-full text-md rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900"
+                class="mt-2 py-3 px-4 block w-full text-md rounded-xl border border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-slate-900/80 outline-none transition duration-300 focus:border-primary focus:ring-4 focus:ring-primary/15"
               />
             </div>
           )
@@ -41,7 +41,7 @@ const { inputs, textarea, disclaimer, button = 'Contact us', description = '' } 
           name={textarea.name ? textarea.name : 'message'}
           rows={textarea.rows ? textarea.rows : 4}
           placeholder={textarea.placeholder}
-          class="py-3 px-4 block w-full text-md rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900"
+          class="mt-2 py-3 px-4 block w-full text-md rounded-xl border border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-slate-900/80 outline-none transition duration-300 focus:border-primary focus:ring-4 focus:ring-primary/15"
         />
       </div>
     )

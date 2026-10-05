@@ -1,0 +1,147 @@
+---
+// Scroll-driven polish shared by every page:
+// - `[data-reveal]` elements fade/blur in as they enter the viewport
+//   (optional `style="--reveal-delay: 120"` for staggering, in ms)
+// - `[data-count]` numbers count up once visible
+// - `[data-process]` timelines fill their progress line and highlight the active step
+// Re-initialised on every client-side navigation via `astro:page-load`.
+---
+
+<div class="scroll-progress" aria-hidden="true"></div>
+
+<noscript>
+  <style>
+    [data-reveal] {
+      opacity: 1 !important;
+      transform: none !important;
+      filter: none !important;
+    }
+  </style>
+</noscript>
+
+<script>
+  const reduceMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  let cleanups: Array<() => void> = [];
+
+  function initReveal() {
+    const elements = document.querySelectorAll<HTMLElement>('[data-reveal]');
+    if (!('IntersectionObserver' in window) || reduceMotion()) {
+      elements.forEach((el) => el.classList.add('is-visible'));
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -8% 0px' }
+    );
+    elements.forEach((el) => observer.observe(el));
+    cleanups.push(() => observer.disconnect());
+  }
+
+  function animateCount(el: HTMLElement) {
+    const target = Number(el.dataset.count);
+    const suffix = el.dataset.suffix ?? '';
+    const format = (n: number) => Math.round(n).toLocaleString('en-US') + suffix;
+    if (reduceMotion()) {
+      el.textContent = format(target);
+      return;
+    }
+    const duration = 1800;
+    const start = performance.now();
+    const tick = (now: number) => {
+      const t = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - t, 4);
+      el.textContent = format(target * eased);
+      if (t < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+
+  function initCounters() {
+    const counters = document.querySelectorAll<HTMLElement>('[data-count]');
+    if (!counters.length) return;
+    if (!reduceMotion()) counters.forEach((el) => (el.textContent = '0' + (el.dataset.suffix ?? '')));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            animateCount(entry.target as HTMLElement);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.6 }
+    );
+    counters.forEach((el) => observer.observe(el));
+    cleanups.push(() => observer.disconnect());
+  }
+
+  function initProcess() {
+    document.querySelectorAll<HTMLElement>('[data-process]').forEach((root) => {
+      const track = root.querySelector<HTMLElement>('[data-process-track]');
+      const steps = Array.from(root.querySelectorAll<HTMLElement>('[data-process-step]'));
+      const label = root.querySelector<HTMLElement>('[data-process-current]');
+      const title = root.querySelector<HTMLElement>('[data-process-title]');
+      if (!track || !steps.length) return;
+
+      let frame = 0;
+      const update = () => {
+        frame = 0;
+        const rect = track.getBoundingClientRect();
+        const anchor = window.innerHeight * 0.55;
+        const progress = Math.min(Math.max((anchor - rect.top) / rect.height, 0), 1);
+        root.style.setProperty('--process-progress', progress.toFixed(4));
+
+        let active = 0;
+        steps.forEach((step, i) => {
+          if (step.getBoundingClientRect().top < anchor) active = i;
+        });
+        steps.forEach((step, i) => {
+          step.classList.toggle('is-active', i === active);
+          step.classList.toggle('is-done', i < active);
+        });
+        if (label) label.textContent = String(active + 1).padStart(2, '0');
+        const nextTitle = steps[active].dataset.processStep ?? '';
+        if (title && title.textContent?.trim() !== nextTitle) {
+          title.textContent = nextTitle;
+          if (!reduceMotion()) {
+            title.animate(
+              [
+                { opacity: 0, transform: 'translateY(8px)', filter: 'blur(4px)' },
+                { opacity: 1, transform: 'none', filter: 'none' },
+              ],
+              { duration: 500, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }
+            );
+          }
+        }
+      };
+      const onScroll = () => {
+        if (!frame) frame = requestAnimationFrame(update);
+      };
+
+      update();
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll);
+      cleanups.push(() => {
+        window.removeEventListener('scroll', onScroll);
+        window.removeEventListener('resize', onScroll);
+        cancelAnimationFrame(frame);
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', () => {
+    cleanups.forEach((fn) => fn());
+    cleanups = [];
+    initReveal();
+    initCounters();
+    initProcess();
+  });
+</script>
