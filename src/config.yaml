@@ -1,6 +1,6 @@
 site:
-  name: "Joan Andrivalisoa"
-  title: "Joan Andrivalisoa — Talent Acquisition Specialist"
+  name: 'Joan Andrivalisoa'
+  title: 'Joan Andrivalisoa — Talent Acquisition Specialist'
   site: 'https://mon-portfolio-joan.vercel.app' # Replace with your real domain later
   base: '/'
   trailingSlash: false
@@ -9,14 +9,14 @@ site:
 
 metadata:
   title:
-    default: "Joan Andrivalisoa — Talent Acquisition Specialist"
-    template: "%s — Joan Andrivalisoa"
-  description: "🚀 Talent acquisition made simple. Portfolio of Joan Andrivalisoa, Talent Acquisition Specialist."
+    default: 'Joan Andrivalisoa — Talent Acquisition Specialist'
+    template: '%s — Joan Andrivalisoa'
+  description: '🚀 Talent acquisition made simple. Portfolio of Joan Andrivalisoa, Talent Acquisition Specialist.'
   robots:
     index: true
     follow: true
   openGraph:
-    site_name: "Joan Andrivalisoa — Talent Acquisition"
+    site_name: 'Joan Andrivalisoa — Talent Acquisition'
     images:
       - url: '~/assets/images/hero-image.png'
         width: 1200
